@@ -14,7 +14,7 @@ $(function () {
     var $currentInput = $usernameInput.focus();
       
     // Socket.io Objekt anlegen
-    var socket = io();
+    var socket = io('http://13.51.195.247:3000');
     
     // ==== Code für Benutzerschnittstelle
     

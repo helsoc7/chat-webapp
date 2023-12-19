@@ -2,10 +2,21 @@
 // Mit diesen beiden Modulen veröffentlichen wir die HTML-Dateien
 var express = require('express');
 var app = express();
+var cors = require('cors');
+var corsOptions = {
+    origin: '*';
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 var server = require('http').createServer(app);
 
 // Socket.io
-var io = require('socket.io')(server);
+var io = require('socket.io')(server, {
+    cors: {
+        origin: '*',
+        methods: ["GET", "POST"]
+    }
+});
 
 // Starte den Webserver
 var port = process.env.PORT || 3000;
@@ -14,7 +25,7 @@ server.listen(port, function () {
 })
 
 // Wo befinden sich die HTML-Dateien für express
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname));
 
 // Logge etwas, wenn es Veränderungen bei den Verbindungen gibt
 // socket = Variable des aktuellen Websockets, Verbindung zu jeweiligen Browser Client
